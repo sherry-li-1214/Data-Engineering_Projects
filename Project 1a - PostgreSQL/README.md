@@ -49,6 +49,7 @@ On why to use a relational database for this case:
  - last_name (TEXT) NOT NULL: Last Name of user
  - gender (TEXT): Gender of user {M | F}
  - level (TEXT): User level {free | paid}
+ 
  **songs** - songs in music database
 
  - song_id (TEXT) PRIMARY KEY: ID of Song
@@ -56,14 +57,16 @@ On why to use a relational database for this case:
  - artist_id (TEXT) NOT NULL: ID of song Artist
  - year (INT): Year of song release
  - duration (FLOAT) NOT NULL: Song duration in milliseconds
- **artists** - artists in music database
+
+**artists** - artists in music database
 
  - artist_id (TEXT) PRIMARY KEY: ID of Artist
  - name (TEXT) NOT NULL: Name of Artist
  - location (TEXT): Name of Artist city
  - lattitude (FLOAT): Lattitude location of artist
  - longitude (FLOAT): Longitude location of artist
- **time** - timestamps of records in songplays broken down into specific units
+
+**time** - timestamps of records in songplays broken down into specific units
 
  - start_time (DATE) PRIMARY KEY: Timestamp of row
  - hour (INT): Hour associated to start_time
