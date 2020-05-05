@@ -119,6 +119,7 @@ Prerequisites:
 
 `song_data = [song_id, title, artist_id, year, duration]`
  `artist_data = [artist_id, artist_name, artist_location, artist_longitude, artist_latitude]`
+ 
 5. And finally we insert this data into their respective databases.
 
 6. Once all files from song_data are read and processed, we move on processing log_data.
