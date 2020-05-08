@@ -3,8 +3,8 @@
 ## Summary
 * [Introduction](#Introduction)
 * [Data Warehouse Schema Definition](#Data-Warehouse-Schema-Definition)
-* [ETL process](#ETL-Process)
-* [Project structure](#Project-Structure)
+* [ETL Process](#ETL-Process)
+* [Project Structure](#Project-Structure)
 * [How To Run](#How-to-Run)
 
 --------------------------------------------
