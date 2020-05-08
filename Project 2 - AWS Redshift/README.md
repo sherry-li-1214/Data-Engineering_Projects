@@ -275,6 +275,56 @@ The structure is:
 * <b> create_tables.py </b> - This script will drop old tables (if exist) ad re-create new tables
 * <b> etl.py </b> - This script orchestrate ETL.
 * <b> sql_queries.py </b> - This is the ETL. All the transformatios in SQL are done here.
-* <b> /img </b> - Directory with images that are used in this markdown document
+* <b> analytics.py </b>  runs a few queries on the created star schema to validate that the project has been completed successfully.
+* <b> create_cluster.py </b>  is where the AWS components for this project are created programmatically
+* <b> dwh.cfg  </b> - configuration files to set all predefined parameters, including RedShift cluster information and s3 bucket location, the credentials an information about AWS resources named 
 
-We need an extra file with the credentials an information about AWS resources named <b>dhw.cfg</b>
+
+## How to run
+
+1. To run this project you will need to fill the following information, in *dwh.cfg* in the project root folder.
+
+```
+[CLUSTER]
+HOST=''
+DB_NAME=''
+DB_USER=''
+DB_PASSWORD=''
+DB_PORT=5439
+[IAM_ROLE]
+ARN=
+[S3]
+LOG_DATA='s3://udacity-dend/log_data'
+LOG_JSONPATH='s3://udacity-dend/log_json_path.json'
+SONG_DATA='s3://udacity-dend/song_data'
+[AWS]
+KEY=
+SECRET=
+[DWH]
+DWH_CLUSTER_TYPE       = multi-node
+DWH_NUM_NODES          = 4
+DWH_NODE_TYPE          = dc2.large
+DWH_CLUSTER_IDENTIFIER = 
+DWH_DB                 = 
+DWH_DB_USER            = 
+DWH_DB_PASSWORD        = 
+DWH_PORT               = 5439
+DWH_IAM_ROLE_NAME      = 
+```
+
+2. Run the *create_cluster* script to set up the needed infrastructure for this project. This will create the cluster for the following steps. Keep cluster_node and IAM_ROLE_ARN 
+
+    `$ python create_cluster.py`
+
+3. modify dwh.cfg file, and put host name and IAM_ROLE_ARN value  with the cluster in step 2. 
+4 .Run the *create_tables* script to set up the database staging and analytical tables
+
+    `$ python create_tables.py`
+
+5. Finally, run the *etl* script to extract data from the files in S3, stage it in redshift, and finally store it in the dimensional tables.
+
+    `$ python create_tables.py`
+    
+ 6. (Optional), run "analytics" script to get the count for each table in RedShift cluster .
+    
+     `$ python analytics.py`
