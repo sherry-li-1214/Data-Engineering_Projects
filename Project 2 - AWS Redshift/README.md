@@ -3,14 +3,13 @@
 ## Summary
 * [Introduction](#Introduction)
 * [Data Warehouse Schema Definition](#Data-Warehouse-Schema-Definition)
-* [ETL process](#ETL-process)
-* [Project structure](#Project-structure)
-* [How To Run](# How to run)
+* [ETL process](#ETL-Process)
+* [Project structure](#Project-Structure)
+* [How To Run](#How-to-Run)
 
 --------------------------------------------
 
 ### Introduction
-
 
 A music streaming startup, Sparkify, has grown their user base and song database and want 
 to move their processes and data onto the cloud. Their data resides in S3, in a directory 
@@ -164,7 +163,7 @@ This is the schema of the database
 
 --------------------------------------------
 
-### ETL process
+### ETL Process
 
 All the transformations logic (ETL) is done in SQL inside Redshift. 
 
@@ -269,7 +268,7 @@ songplay_table_insert = ("""
 
 --------------------------------------------
 
-#### Project structure
+### Project Structure
 
 The structure is:
 
@@ -281,7 +280,7 @@ The structure is:
 * <b> dwh.cfg  </b> - configuration files to set all predefined parameters, including RedShift cluster information and s3 bucket location, the credentials an information about AWS resources named 
 
 
-### How to run
+### How to Run
 
 1. To run this project you will need to fill the following information, in *dwh.cfg* in the project root folder.
 
@@ -329,7 +328,7 @@ DWH_IAM_ROLE_NAME      =
  6. (Optional), run "analytics" script to get the count for each table in RedShift cluster .
     
      `$ python analytics.py`
-## Queries and Results
+#### Queries and Results
 
 Number of rows in each table:
 
