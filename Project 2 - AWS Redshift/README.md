@@ -328,3 +328,16 @@ DWH_IAM_ROLE_NAME      =
  6. (Optional), run "analytics" script to get the count for each table in RedShift cluster .
     
      `$ python analytics.py`
+## Queries and Results
+
+Number of rows in each table:
+
+| Table            | rows  |
+|---               | --:   |
+| staging_events   | 8056  |
+| staging_songs    | 14896 |
+| artists          | 10025 |
+| songplays        | 333   |
+| songs            | 14896 |
+| time             |  8023 |
+| users            |  105  |
