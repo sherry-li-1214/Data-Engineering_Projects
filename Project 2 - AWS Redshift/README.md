@@ -5,6 +5,7 @@
 * [Data Warehouse Schema Definition](#Data-Warehouse-Schema-Definition)
 * [ETL process](#ETL-process)
 * [Project structure](#Project-structure)
+* [How To Run](# How to run)
 
 --------------------------------------------
 
@@ -280,7 +281,7 @@ The structure is:
 * <b> dwh.cfg  </b> - configuration files to set all predefined parameters, including RedShift cluster information and s3 bucket location, the credentials an information about AWS resources named 
 
 
-## How to run
+### How to run
 
 1. To run this project you will need to fill the following information, in *dwh.cfg* in the project root folder.
 
