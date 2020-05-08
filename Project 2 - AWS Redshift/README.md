@@ -67,13 +67,13 @@ This is the schema of the database
 | ------ | ---- | ------- |
 |num_songs| int| |
 |artist_id| varchar| |
-|artist_latitude | decimal | |
-|artist_longitude| decimal| |
+|artist_latitude | float | |
+|artist_longitude| float| |
 |artist_location| varchar| |
 |artist_name | varchar | |
 |song_id| varchar| |
 |title| varchar| |
-|duration | decimal | |
+|duration | float | |
 |year | int | |
 
 
@@ -107,7 +107,7 @@ This is the schema of the database
 
 | COLUMN | TYPE | FEATURES |
 | ------ | ---- | ------- |
-|user_id| int| distkey, PRIMARY KEY |
+|user_id| int| not null | SORTKEY , PRIMARY KEY, |
 |first_name| varchar| |
 |last_name | varchar | |
 |gender| varchar| |
@@ -117,7 +117,7 @@ This is the schema of the database
 
 | COLUMN | TYPE | FEATURES |
 | ------ | ---- | ------- |
-|song_id| varchar| sortkey, PRIMARY KEY |
+|song_id| varchar| not null |SORTKEY , PRIMARY KEY |
 |title| varchar| NOT NULL |
 |artist_id | varchar | NOT NULL|
 |duration| decimal| |
@@ -126,7 +126,7 @@ This is the schema of the database
 
 | COLUMN | TYPE | FEATURES |
 | ------ | ---- | ------- |
-|artist_id| varchar| sortkey, PRIMARY KEY |
+|artist_id| varchar| not null |sortkey, PRIMARY KEY |
 |name| varchar| NOT NULL |
 |location | varchar | |
 |latitude| decimal| |
@@ -137,7 +137,7 @@ This is the schema of the database
 
 | COLUMN | TYPE | FEATURES |
 | ------ | ---- | ------- |
-|start_time| timestamp| sortkey, PRIMARY KEY |
+|start_time| timestamp| SORTKEY , PRIMARY KEY |
 |hour| int| |
 |day| int| |
 |week| int| |
@@ -152,11 +152,11 @@ This is the schema of the database
 | COLUMN | TYPE | FEATURES |
 | ------ | ---- | ------- |
 |songplay_id| int| IDENTITY (0,1), PRIMARY KEY |
-|start_time| timestamp| REFERENCES  time(start_time)    sortkey|
-|user_id | int | REFERENCES  users(user_id) distkey|
+|start_time| timestamp|    NOT NULL SORTKEY DISTKEY|
+|user_id | int |  users(user_id) distkey|
 |level| varchar| |
-|song_id| varchar| REFERENCES  songs(song_id)|
-|artist_id | varchar | REFERENCES  artists(artist_id)|
+|song_id| varchar|  songs(song_id)|
+|artist_id | varchar |  artists(artist_id)|
 |session_id| int| NOT NULL|
 |location| varchar| |
 |user_agent| varchar| |
