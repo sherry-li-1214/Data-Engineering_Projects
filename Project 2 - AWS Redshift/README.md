@@ -46,6 +46,9 @@ We need to ingest this data into AWS Redshift using COPY command. This command g
 from buckets and copy them into staging tables inside AWS Redshift.
 
 <b>Log Dataset structure:</b>
+~~~~
+{"artist":"Pavement", "auth":"Logged In", "firstName":"Sylvie", "gender", "F", "itemInSession":0, "lastName":"Cruz", "length":99.16036, "level":"free", "location":"Klamath Falls, OR", "method":"PUT", "page":"NextSong", "registration":"1.541078e+12", "sessionId":345, "song":"Mercy:The Laundromat", "status":200, "ts":1541990258796, "userAgent":"Mozilla/5.0(Macintosh; Intel Mac OS X 10_9_4...)", "userId":10}
+~~~~
 
 <b>Song dataset structure:</b>
 ~~~~
