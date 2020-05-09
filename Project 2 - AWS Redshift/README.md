@@ -46,7 +46,6 @@ We need to ingest this data into AWS Redshift using COPY command. This command g
 from buckets and copy them into staging tables inside AWS Redshift.
 
 <b>Log Dataset structure:</b>
-![Log Dataset](./images/log_dataset.jpg)
 
 <b>Song dataset structure:</b>
 ~~~~
