@@ -137,16 +137,5 @@ root
 ~~~~
 partitionBy("year", "month")
 
-
-
-# Project 4: Create a Data Lake with Spark
-
-## Summary
-* [Introduction](#Introduction)
-* [Partition parquet files](#Partition-parquet-files)
-* [ETL process](#ETL-process)
-* [Project structure](#Project-structure)
-* [How to run](#How-to-run)
-
 --------------------------------------------
 
