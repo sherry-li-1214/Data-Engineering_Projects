@@ -10,18 +10,18 @@ From this tables we will be able to find insights in what songs their users are 
 
 ## How to run
 
-*To run this project in local mode*, create a file `dl.cfg` in the root of this project with the following data:
+-*To run this project in local mode*, create a file `dl.cfg` in the root of this project with the following data:
 
-```
-KEY=YOUR_AWS_ACCESS_KEY
-SECRET=YOUR_AWS_SECRET_KEY
-```
+  ```
+  KEY=YOUR_AWS_ACCESS_KEY
+  SECRET=YOUR_AWS_SECRET_KEY
+  ```
 
-Create an S3 Bucket named `sparkify-dend` where output results will be stored.
+- Create an S3 Bucket named `sparkify-sherry` where output results will be stored.
 
-Finally, run the following command:
+- Finally, run the following command:
 
-`python etl.py`
+   `python etl.py`
 
 *To run on an Jupyter Notebook powered by an EMR cluster*, import the notebook found in this project.
 
