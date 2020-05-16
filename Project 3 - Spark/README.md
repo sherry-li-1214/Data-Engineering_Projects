@@ -1,40 +1,152 @@
-# Summary of project
+# Project: Data Lake
 
-Startup called Sparkify wants to analyze the data they've been collecting on songs and user activity on their new music streaming app. The analytics team is particularly interested in understanding what songs users are listening to. Currently, they don't have an easy way to query their data, which resides in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.
+## Introduction
 
-In order to enable Sparkify to parse and analyze their data in a distributed manner, a Spark ETL Pipeline was created, which reads the data stored inside S3.
+*A music streaming startup, Sparkify, has grown their user base and song database even more and want to move their data warehouse to a data lake. Their data resides in S3, in a directory of JSON logs on user activity on the app, as well as a directory with JSON metadata on the songs in their app.*
 
-# How to run the python scripts
+In this project we will build an ETL pipeline that extracts their data from the data lake hosted on S3, processes them using Spark which will be deployed on an EMR cluster using AWS, and load the data back into S3 as a set of dimensional tables in parquet format. 
 
-To start the ETL pipeline, you have to run the following file below:
+From this tables we will be able to find insights in what songs their users are listening to.
 
-To fill tables via ETL:
-```bash
-python3 etl.py
+## How to run
+
+*To run this project in local mode*, create a file `dl.cfg` in the root of this project with the following data:
+
+```
+KEY=YOUR_AWS_ACCESS_KEY
+SECRET=YOUR_AWS_SECRET_KEY
 ```
 
-# Files in the repository
+Create an S3 Bucket named `sparkify-dend` where output results will be stored.
 
-* **[etl.py](etl.py)**: Python script to extract the needed information from Song and Log data inside the S3 buckets and parsing/inserting them to the local directory
+Finally, run the following command:
+
+`python etl.py`
+
+*To run on an Jupyter Notebook powered by an EMR cluster*, import the notebook found in this project.
+
+## Project structure
+
+The files found at this project are the following:
+
+- dl.cfg: *not uploaded to github - you need to create this file yourself* File with AWS credentials.
+- etl.py: Program that extracts songs and log data from S3, transforms it using Spark, and loads the dimensional tables created in parquet format back to S3.
+- README.md: Current file, contains detailed information about the project.
+
+## ETL pipeline
+
+1. Load credentials
+2. Read data from S3
+    - Song data: `s3://udacity-dend/song_data`
+    - Log data: `s3://udacity-dend/log_data`
+
+    The script reads song_data and load_data from S3.
+
+3. Process data using spark
+
+    Transforms them to create five different tables listed under `Dimension Tables and Fact Table`.
+    Each table includes the right columns and data types. Duplicates are addressed where appropriate.
+
+4. Load it back to S3
+
+    Writes them to partitioned parquet files in table directories on S3.
+
+    Each of the five tables are written to parquet files in a separate analytics directory on S3. Each table has its own folder within the directory. Songs table files are partitioned by year and then artist. Time table files are partitioned by year and month. Songplays table files are partitioned by year and month.
+
+### Source Data
+- **Song datasets**: all json files are nested in subdirectories under *s3a://udacity-dend/song_data*. A sample of this files is:
+
+```
+{"num_songs": 1, "artist_id": "ARJIE2Y1187B994AB7", "artist_latitude": null, "artist_longitude": null, "artist_location": "", "artist_name": "Line Renaud", "song_id": "SOUPIRU12A6D4FA1E1", "title": "Der Kleine Dompfaff", "duration": 152.92036, "year": 0}
+```
+
+- **Log datasets**: all json files are nested in subdirectories under *s3a://udacity-dend/log_data*. A sample of a single row of each files is:
+
+```
+{"artist":"Slipknot","auth":"Logged In","firstName":"Aiden","gender":"M","itemInSession":0,"lastName":"Ramirez","length":192.57424,"level":"paid","location":"New York-Newark-Jersey City, NY-NJ-PA","method":"PUT","page":"NextSong","registration":1540283578796.0,"sessionId":19,"song":"Opium Of The People (Album Version)","status":200,"ts":1541639510796,"userAgent":"\"Mozilla\/5.0 (Windows NT 6.1) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/36.0.1985.143 Safari\/537.36\"","userId":"20"}
+```
+
+### Dimension Tables and Fact Table
+
+#### Dimension tables
+
+##### TABLE users
+
+~~~~
+root
+ |-- firstName: string (nullable = true)
+ |-- lastName: string (nullable = true)
+ |-- gender: string (nullable = true)
+ |-- level: string (nullable = true)
+ |-- userId: string (nullable = true)
+~~~~
+
+##### TABLE songs
+
+~~~~
+root
+ |-- song_id: string (nullable = true)
+ |-- title: string (nullable = true)
+ |-- artist_id: string (nullable = true)
+ |-- year: long (nullable = true)
+ |-- duration: double (nullable = true)
+~~~~
+partitionBy("year", "artist_id")
+
+##### TABLE artists
+
+~~~~
+root
+ |-- artist_id: string (nullable = true)
+ |-- artist_name: string (nullable = true)
+ |-- artist_location: string (nullable = true)
+ |-- artist_latitude: double (nullable = true)
+ |-- artist_longitude: double (nullable = true)
+~~~~
+
+##### TABLE time
+
+~~~~
+root
+ |-- start_time: timestamp (nullable = true)
+ |-- hour: integer (nullable = true)
+ |-- day: integer (nullable = true)
+ |-- week: integer (nullable = true)
+ |-- month: integer (nullable = true)
+ |-- year: integer (nullable = true)
+ |-- weekday: integer (nullable = true)
+~~~~
+
+partitionBy("year", "month")
+
+#### Fact table
+
+##### TABLE songplays
+
+~~~~
+root
+ |-- start_time: timestamp (nullable = true)
+ |-- userId: string (nullable = true)
+ |-- level: string (nullable = true)
+ |-- sessionId: long (nullable = true)
+ |-- location: string (nullable = true)
+ |-- userAgent: string (nullable = true)
+ |-- song_id: string (nullable = true)
+ |-- artist_id: string (nullable = true)
+ |-- songplay_id: long (nullable = false)
+~~~~
+partitionBy("year", "month")
 
 
-# The database schema design and ETL pipeline.
 
-In order to enable Sparkify to analyze their data, a Relational Database Schema was created, which can be filled with an ETL pipeline.
+# Project 4: Create a Data Lake with Spark
 
-The so-called star scheme enables the company to view the user behaviour over several dimensions.
-The fact table is used to store all user song activities that contain the category "NextSong". Using this table, the company can relate and analyze the dimensions users, songs, artists and time.
+## Summary
+* [Introduction](#Introduction)
+* [Partition parquet files](#Partition-parquet-files)
+* [ETL process](#ETL-process)
+* [Project structure](#Project-structure)
+* [How to run](#How-to-run)
 
-* **Fact Table**: songplays
-* **Dimension Tables**: users, songs, artists and time.
+--------------------------------------------
 
-# Dataset used
-
-The data is queried from s3 buckets hosten at AWS
-
-* **Song data**: ```s3://udacity-dend/song_data```
-* **Log data**: ```s3://udacity-dend/log_data```
-
-The first dataset is a subset of real data from the [Million Song Dataset](http://millionsongdataset.com/). Each file is in JSON format and contains metadata about a song and the artist of that song. The files are partitioned by the first three letters of each song's track ID. For example, here are filepaths to two files in this dataset.
-
-The second dataset consists of log files in JSON format generated by this event simulator based on the songs in the dataset above. These simulate app activity logs from an imaginary music streaming app based on configuration settings.
