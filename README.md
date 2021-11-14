@@ -1,7 +1,6 @@
-# Udacity_Courses
-Work that I've done for Udacity's  nanodegree and various data science courses.
-
-This repository contains my solutions to the course "Udacity Data Engineering Nanodegree" in summer 2020
+# Data Enginner Projects
+Work that I've done for different projects  regarding data warehousing and data processing.
+ 
 
 Projects
 Project Folder	Description	Done
